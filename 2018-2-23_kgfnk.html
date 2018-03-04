@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="kgfnk">
+  <title>便利なCUIツール</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/black.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">便利なCUIツール</h1>
+  <p class="author">kgfnk</p>
+  <p class="date">2018.2.23</p>
+</section>
+
+<section class="slide level2">
+
+<p><strong>注意</strong></p>
+<p>今回紹介するものは、基本的にmac(unix)やlinuxで使われているツールです。<br />
+golangで書かれているものが多いので、実はWindows環境でも使えます。</p>
+<ul>
+<li>Windows Subsystem for Linux でも良いかも？</li>
+</ul>
+</section>
+<section id="選択的インターフェース" class="slide level2">
+<h2>選択的インターフェース</h2>
+<p><em>勉強会で紹介できなかったものも追記しています</em></p>
+<p>勉強会時には資料なかった・・・</p>
+</section>
+<section class="slide level2">
+
+<ul>
+<li><p><a href="https://github.com/peco/peco">peco/peco： Simplistic interactive filtering tool</a></p>
+<p>シンプルで使いやすく、覚えやすい</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<ul>
+<li><p><a href="https://github.com/junegunn/fzf">junegunn/fzf： A command-line fuzzy finder</a></p>
+<ul>
+<li><code>ctr + r</code>で<code>history</code>から選択するのが便利</li>
+<li>公式でvimプラグインが提供されていたり高機能！</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="aliasを作っておくと便利かも">aliasを作っておくと便利かも</h3>
+</section>
+<section class="slide level2">
+
+<p>選択したmarkdownファイルをエディタで表示</p>
+<pre><code>% vim $(find . -type f -name &quot;*.md&quot; | peco)</code></pre>
+</section>
+<section class="slide level2">
+
+<p>選択したディレクトリへ変更<br />
+(カレント以下全ての階層が対象)</p>
+<pre><code>% cd $(find . -type d | peco)</code></pre>
+</section>
+<section class="slide level2">
+
+<p>プロセスを選択してkill</p>
+<pre><code>% kill -9 `ps ax | peco | awk &#39;{print $1}&#39;`</code></pre>
+</section>
+<section class="slide level2">
+
+<p>Gitブランチを選択してチェックアウト</p>
+<pre><code>% git checkout $(git branch -a | peco | head -n 1 | sed -e &quot;s/^\*\s*//g&quot;)</code></pre>
+</section>
+<section class="slide level2">
+
+<p><strong>組み合わせ次第で無限の可能性を感じます</strong></p>
+<ul>
+<li>WebサービスAPIと繋げたら便利かも</li>
+</ul>
+</section>
+<section id="pecofzfを使用した応用技" class="slide level2">
+<h2>peco/fzfを使用した応用技</h2>
+</section>
+<section class="slide level2">
+
+<h3 id="cuiでのメモ取り">CUIでのメモ取り</h3>
+<ul>
+<li><a href="https://github.com/mattn/memo">mattn/memo： 📓 Memo Life For You</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="gistを管理">Gistを管理</h3>
+<ul>
+<li><a href="https://github.com/b4b4r07/gist">b4b4r07/gist： A simple gist editor for CLI</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="コマンドのスニペット管理">コマンドのスニペット管理</h3>
+<ul>
+<li><p><a href="https://github.com/knqyf263/pet">knqyf263/pet： Simple command-line snippet manager, written in Go.</a></p>
+<p>これは凄い！！コマンドが覚えられない問題解決！！</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="絵文字を選択する">絵文字を選択する</h3>
+<ul>
+<li><a href="https://github.com/b4b4r07/emoji-cli">b4b4r07/emoji-cli： Emoji completion on the command line</a></li>
+</ul>
+</section>
+<section id="git-cloneを一箇所で管理する" class="slide level2">
+<h2>git cloneを一箇所で管理する</h2>
+<ul>
+<li><a href="https://github.com/motemen/ghq">motemen/ghq： Remote repository management made easy</a></li>
+</ul>
+</section>
+<section id="プロンプトにgitブランチを表示する" class="slide level2">
+<h2>プロンプトにGitブランチを表示する</h2>
+<ul>
+<li><a href="https://issueoverflow.com/articles/2017/03/14/how-to-display-the-repository-status-with-zsh-git-prompt/">zsh-git-prompt を使って git リポジトリの状態を表示する方法 | IssueOverflow</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="おまけ">おまけ</h3>
+</section>
+<section class="slide level2">
+
+<p>グローバルIPを調べるコマンド</p>
+<pre><code>% curl net-ip.info</code></pre>
+</section>
+<section class="slide level2">
+
+<p>a-zを表示(入力するの意外と面倒だったり)</p>
+<pre><code>% echo {a..z} | sed &#39;s/ //g&#39;
+abcdefghijklmnopqrstuvwxyz</code></pre>
+</section>
+<section class="slide level2">
+
+<h3 id="画像を表示する">画像を表示する</h3>
+<ul>
+<li><a href="http://takuya-1st.hatenablog.jp/entry/2016/03/03/035307">iTerm2でターミナルに画像を表示する。 - それマグで！</a></li>
+</ul>
+<p>macのみ。linuxでも同じような事はできるらしい。</p>
+</section>
+<section class="slide level2">
+
+<h3 id="ファイルマネージャー">ファイルマネージャー</h3>
+<ul>
+<li><a href="https://github.com/ranger/ranger">ranger/ranger： A VIM-inspired filemanager for the console</a></li>
+</ul>
+<p>もはや意味がわからない</p>
+<ul>
+<li><a href="https://qiita.com/ssh0/items/3d71da415953003d47d7">CLIファイルマネージャrangerの基本設定 - Qiita</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<p>このスライドもmarkdownからコマンドで変換</p>
+<pre><code>% pandoc -s -t revealjs -o 2018-2-23_kgfnk.html 2018-2-23_kgfnk.md</code></pre>
+<p><a href="https://gist.githubusercontent.com/kgfnk/f74a02e0f31b413e96f12ff99962f11b/raw/fde5e7c3c48c1fc130a70723959e505d00d39007/study.md">変換前ファイル</a></p>
+<p>雑な作りですみません。</p>
+</section>
+<section id="まとめ" class="slide level2">
+<h2>まとめ</h2>
+<p>最近のCUI環境は何でもありになってきてます。</p>
+<p>GitHubは色々なツールが公開されていて面白い。<br />
+便利なツールを見つけたら是非教えてください。</p>
+<p>世の中には凄い人が沢山いますね。</p>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
